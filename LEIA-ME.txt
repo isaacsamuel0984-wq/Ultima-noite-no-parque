@@ -1,0 +1,21 @@
+REEY GAMES — LANDING PAGE
+=========================
+
+Arquivos:
+- index.html: página completa (HTML, CSS e JavaScript puro).
+- assets/logo-reey-games.jpg: recorte da logo enviada.
+
+Como testar:
+1. Extraia o ZIP.
+2. Abra index.html no navegador para uma prévia local.
+3. Para publicar, envie a pasta inteira para sua hospedagem mantendo a estrutura.
+
+Antes de publicar:
+- Os links do trailer, APK, campanha e YouTube já foram inseridos.
+- TikTok, Instagram e Discord estão como placeholders; substitua os href="#" no rodapé pelos perfis oficiais.
+- A barra da vaquinha começa em R$ 0,00 / R$ 2.000,00. Edite FUNDRAISING no fim do index.html.
+- O painel QR/widget é um espaço reservado. A campanha informada é Campanha do Bem; insira um embed LivePix real apenas se tiver um código/widget oficial.
+- O formulário de avaliação copia a resposta para a área de transferência; não envia dados a um servidor. Para receber avaliações online, conecte um Google Forms ou backend.
+
+Observação:
+A versão do APK aparece como v1.9 conforme solicitado. Confirme que o arquivo hospedado corresponde a essa versão antes de divulgar.

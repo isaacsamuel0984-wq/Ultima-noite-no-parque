@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#090a0f">
+  <meta name="description" content="Explore a mata escura, proteja a cabana e sobreviva até o amanhecer em Última Noite no Parque, um survival horror indie da Reey Games.">
+  <title>Última Noite no Parque — Reey Games</title>
+  <link rel="preload" as="image" href="assets/logo-reey-games.jpg">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #090a0f; --panel: #141824; --panel-2: #191f2d;
+      --text: #f4f5f7; --muted: #a7adbb; --amber: #f59e0b;
+      --red: #dc2626; --cyan: #00e5ff; --gold: #fbbf24;
+      --line: rgba(255,255,255,.10); --radius: 18px;
+      --max: 1100px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 82px; }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6; -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    .container { width: min(var(--max), calc(100% - 32px)); margin-inline: auto; }
+    .site-header {
+      position: sticky; top: 0; z-index: 20; background: rgba(9,10,15,.92);
+      border-bottom: 1px solid var(--line); backdrop-filter: blur(12px);
+    }
+    .header-inner { min-height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; min-width: 0; }
+    .brand img { width: 46px; height: 46px; object-fit: cover; object-position: center; border-radius: 11px; border: 1px solid rgba(0,229,255,.4); box-shadow: 0 0 16px rgba(0,229,255,.13); }
+    .brand-name { font-weight: 900; letter-spacing: .08em; font-size: .94rem; line-height: 1.1; }
+    .brand-name span { color: var(--cyan); }
+    .brand-name small { display: block; color: var(--gold); font-size: .57rem; letter-spacing: .24em; margin-top: 4px; }
+    nav { display: flex; align-items: center; gap: 17px; }
+    nav a { color: #c8ccd5; font-size: .83rem; font-weight: 650; text-decoration: none; transition: color .2s; }
+    nav a:hover, nav a:focus-visible { color: var(--cyan); }
+    .menu-toggle { display: none; border: 1px solid var(--line); background: var(--panel); color: white; border-radius: 10px; padding: 9px 11px; font-size: 1.1rem; }
+    .hero {
+      position: relative; overflow: hidden; isolation: isolate; padding: 68px 0 58px;
+      background: radial-gradient(ellipse at 50% 5%, rgba(31,69,85,.36), transparent 54%),
+                  linear-gradient(180deg, #0d111b 0%, #090a0f 100%);
+    }
+    .hero::before, .hero::after {
+      content: ""; position: absolute; inset: -20%; z-index: -1; pointer-events: none;
+      background: radial-gradient(ellipse at 25% 45%, rgba(173,187,198,.07), transparent 38%),
+                  radial-gradient(ellipse at 75% 65%, rgba(111,137,153,.06), transparent 35%);
+      filter: blur(22px); animation: mist 18s ease-in-out infinite alternate;
+    }
+    .hero::after { animation-duration: 25s; animation-direction: alternate-reverse; opacity: .65; }
+    @keyframes mist { from { transform: translate3d(-2%,0,0) scale(1); } to { transform: translate3d(2%,1%,0) scale(1.06); } }
+    .hero-content { text-align: center; max-width: 850px; margin: auto; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; color: var(--amber); border: 1px solid rgba(245,158,11,.35); background: rgba(245,158,11,.08); padding: 7px 12px; border-radius: 999px; font-size: .68rem; font-weight: 800; letter-spacing: .13em; }
+    h1 { font-size: clamp(2.2rem, 8vw, 5rem); line-height: .98; letter-spacing: -.055em; margin: 22px 0 18px; text-wrap: balance; }
+    h1 span { color: var(--amber); text-shadow: 0 0 28px rgba(245,158,11,.16); }
+    .hero-sub { max-width: 660px; margin: 0 auto 28px; color: #c3c8d2; font-size: clamp(1rem, 2.6vw, 1.15rem); }
+    .video-frame { width: min(820px, 100%); margin: 0 auto 28px; padding: 5px; border-radius: 18px; background: linear-gradient(135deg, rgba(245,158,11,.75), rgba(220,38,38,.42), rgba(0,229,255,.35)); box-shadow: 0 18px 60px rgba(0,0,0,.4); }
+    .video-frame iframe { display: block; width: 100%; aspect-ratio: 16/9; border: 0; border-radius: 13px; background: #050608; }
+    .download-area { display: grid; justify-items: center; gap: 9px; }
+    .download-btn, .donate-btn {
+      display: inline-flex; justify-content: center; align-items: center; gap: 11px;
+      width: min(100%, 430px); min-height: 60px; padding: 15px 22px; border-radius: 13px;
+      background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #171006;
+      font-size: .95rem; font-weight: 950; letter-spacing: .025em; text-decoration: none;
+      box-shadow: 0 8px 26px rgba(245,158,11,.18); transition: transform .2s, box-shadow .2s, filter .2s;
+    }
+    .download-btn:hover, .donate-btn:hover { transform: translateY(-2px); filter: brightness(1.08); box-shadow: 0 12px 32px rgba(245,158,11,.28); }
+    .download-btn svg, .donate-btn svg { width: 22px; height: 22px; flex: 0 0 auto; }
+    .download-note { color: var(--muted); font-size: .78rem; }
+    .trust-note { color: #8e96a6; font-size: .72rem; }
+    .install-card { width: min(100%, 430px); text-align: left; border: 1px solid var(--line); background: rgba(20,24,36,.8); border-radius: 13px; margin-top: 8px; }
+    .install-card summary { cursor: pointer; list-style: none; padding: 13px 15px; font-weight: 750; font-size: .87rem; }
+    .install-card summary::-webkit-details-marker { display: none; }
+    .install-card summary::after { content: "+"; float: right; color: var(--amber); font-size: 1.1rem; }
+    .install-card[open] summary::after { content: "−"; }
+    .install-card ol { margin: 0; padding: 0 20px 16px 38px; color: #b8bfcb; font-size: .82rem; }
+    section { padding: 68px 0; }
+    .section-kicker { color: var(--amber); font-size: .7rem; font-weight: 850; letter-spacing: .18em; text-transform: uppercase; }
+    .section-title { font-size: clamp(1.7rem, 5vw, 2.65rem); line-height: 1.08; margin: 9px 0 13px; letter-spacing: -.035em; }
+    .section-lead { color: var(--muted); max-width: 700px; margin: 0 0 28px; }
+    .mechanics { background: #0d1018; border-block: 1px solid var(--line); }
+    .cards { display: grid; grid-template-columns: 1fr; gap: 13px; }
+    .feature-card { background: linear-gradient(145deg, var(--panel), #10141e); border: 1px solid var(--line); border-radius: var(--radius); padding: 21px; min-height: 170px; }
+    .feature-icon { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 12px; color: var(--amber); background: rgba(245,158,11,.1); margin-bottom: 15px; }
+    .feature-icon svg { width: 22px; height: 22px; }
+    .feature-card h3 { margin: 0 0 7px; font-size: 1.05rem; }
+    .feature-card p { color: var(--muted); margin: 0; font-size: .9rem; }
+    .feedback-wrap { display: grid; gap: 18px; align-items: center; padding: 26px; border-radius: 22px; border: 1px solid rgba(220,38,38,.28); background: radial-gradient(ellipse at 100% 0%, rgba(220,38,38,.12), transparent 55%), var(--panel); }
+    .feedback-wrap p { color: var(--muted); margin: 0; }
+    .secondary-btn { display: inline-flex; align-items: center; justify-content: center; gap: 9px; border: 1px solid rgba(220,38,38,.55); color: #fff; background: rgba(220,38,38,.16); text-decoration: none; font-weight: 850; padding: 14px 18px; min-height: 50px; border-radius: 12px; cursor: pointer; }
+    .secondary-btn:hover { background: rgba(220,38,38,.28); }
+    .funding { background: linear-gradient(180deg, #0d1018, #090a0f); border-block: 1px solid var(--line); }
+    .funding-grid { display: grid; gap: 22px; align-items: start; }
+    .funding-copy p { color: #b8bfcb; }
+    .funding-copy strong { color: white; }
+    .fund-card { border: 1px solid rgba(251,191,36,.25); border-radius: 20px; padding: 22px; background: linear-gradient(145deg, #191b22, #11141d); }
+    .fund-card h3 { margin: 0 0 6px; }
+    .fund-caption { color: var(--muted); font-size: .82rem; }
+    .amounts { display: flex; justify-content: space-between; gap: 10px; margin: 20px 0 9px; font-weight: 800; font-size: .9rem; }
+    .progress { height: 11px; background: #303441; border-radius: 99px; overflow: hidden; }
+    .progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--amber), var(--gold)); border-radius: inherit; transition: width .5s ease; }
+    .pix-placeholder { display: grid; place-items: center; min-height: 112px; margin: 19px 0; padding: 16px; text-align: center; border: 1px dashed rgba(251,191,36,.35); border-radius: 13px; color: #9fa6b4; font-size: .8rem; background: rgba(0,0,0,.16); }
+    .donate-btn { width: 100%; background: linear-gradient(135deg, #fbbf24, #e58a06); }
+    .credits { display: grid; gap: 10px; }
+    .credit-row { display: flex; flex-wrap: wrap; gap: 5px 10px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 12px; background: rgba(20,24,36,.55); }
+    .credit-row span:first-child { color: var(--muted); min-width: 205px; }
+    .credit-row strong { color: #f0f2f6; }
+    .transparency { margin-top: 18px; padding: 15px 17px; border-left: 3px solid var(--amber); background: rgba(245,158,11,.07); color: #c4c9d2; font-size: .88rem; }
+    footer { padding: 34px 0 22px; background: #07080c; border-top: 1px solid var(--line); }
+    .footer-top { display: flex; flex-direction: column; gap: 22px; align-items: flex-start; }
+    .footer-brand { display: flex; align-items: center; gap: 12px; }
+    .footer-brand img { width: 52px; height: 52px; object-fit: cover; border-radius: 12px; border: 1px solid rgba(0,229,255,.35); }
+    .footer-brand strong { display: block; letter-spacing: .1em; color: var(--cyan); }
+    .footer-brand small { color: var(--gold); letter-spacing: .18em; font-size: .65rem; }
+    .socials { display: flex; gap: 10px; flex-wrap: wrap; }
+    .social-link { display: grid; place-items: center; width: 43px; height: 43px; border: 1px solid var(--line); border-radius: 12px; color: #c8d0dc; background: var(--panel); transition: .2s; }
+    .social-link:hover { color: var(--cyan); border-color: rgba(0,229,255,.5); transform: translateY(-2px); }
+    .social-link svg { width: 20px; height: 20px; }
+    .copyright { color: #747c8b; font-size: .75rem; border-top: 1px solid var(--line); margin-top: 25px; padding-top: 17px; }
+    dialog { width: min(520px, calc(100% - 28px)); border: 1px solid rgba(245,158,11,.35); border-radius: 18px; padding: 0; color: var(--text); background: #111620; box-shadow: 0 25px 90px #000b; }
+    dialog::backdrop { background: rgba(0,0,0,.78); backdrop-filter: blur(4px); }
+    .modal-inner { padding: 23px; }
+    .modal-head { display: flex; align-items: center; justify-content: space-between; gap: 15px; }
+    .modal-head h2 { font-size: 1.35rem; margin: 0; }
+    .close-modal { background: transparent; border: 1px solid var(--line); color: white; border-radius: 9px; width: 38px; height: 38px; font-size: 1.2rem; }
+    .field { display: grid; gap: 6px; margin-top: 15px; }
+    .field label { font-size: .82rem; font-weight: 750; color: #d8dce4; }
+    .field input, .field select, .field textarea { width: 100%; border: 1px solid #343b4b; border-radius: 10px; padding: 12px; color: white; background: #090d15; font: inherit; font-size: .9rem; }
+    .field textarea { min-height: 95px; resize: vertical; }
+    .submit-btn { width: 100%; margin-top: 18px; border: 0; border-radius: 11px; padding: 14px; background: var(--amber); color: #1b1203; font-weight: 900; font: inherit; cursor: pointer; }
+    .modal-hint { color: #969eac; font-size: .75rem; margin: 12px 0 0; }
+    @media (min-width: 650px) {
+      .cards { grid-template-columns: repeat(2, 1fr); }
+      .feedback-wrap { grid-template-columns: 1fr auto; padding: 32px; }
+      .funding-grid { grid-template-columns: 1.1fr .9fr; }
+      .footer-top { flex-direction: row; justify-content: space-between; align-items: center; }
+    }
+    @media (min-width: 900px) {
+      .cards { grid-template-columns: repeat(4, 1fr); }
+      .hero { padding: 86px 0 72px; }
+    }
+    @media (max-width: 700px) {
+      .header-inner { min-height: 64px; }
+      .menu-toggle { display: inline-flex; }
+      nav { display: none; position: absolute; top: 64px; left: 0; right: 0; padding: 14px 18px 18px; background: #0d111a; border-bottom: 1px solid var(--line); flex-direction: column; align-items: stretch; gap: 0; }
+      nav.open { display: flex; }
+      nav a { padding: 12px 6px; border-bottom: 1px solid rgba(255,255,255,.06); }
+      section { padding: 54px 0; }
+      .hero { padding-top: 54px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#inicio" aria-label="Reey Games — início">
+        <img src="assets/logo-reey-games.jpg" alt="Logo da Reey Games">
+        <span class="brand-name"><span>REEY</span> GAMES<small>GAME STUDIO</small></span>
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">☰</button>
+      <nav id="mainNav" aria-label="Navegação principal">
+        <a href="#trailer">Trailer</a><a href="#download">Baixar APK</a><a href="#vaquinha">Vaquinha</a><a href="#creditos">Créditos</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="container hero-content">
+        <span class="eyebrow">● PROTÓTIPO JOGÁVEL &nbsp;•&nbsp; SURVIVAL HORROR</span>
+        <h1>ÚLTIMA NOITE<br><span>NO PARQUE</span></h1>
+        <p class="hero-sub">Explore a mata escura, proteja a cabana e sobreviva até o amanhecer. Você tem coragem de entrar?</p>
+        <div class="video-frame" id="trailer">
+          <!-- Trailer oficial: substitua VIDEO_ID pelo ID do vídeo desejado, se mudar o link. -->
+          <iframe src="https://www.youtube-nocookie.com/embed/yRtOoUmjOtE" title="Trailer de Última Noite no Parque" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+        <div class="download-area" id="download">
+          <a class="download-btn" href="https://www.mediafire.com/file/alq3glm4huqdzck/UltimaNoiteNoParque.apk/file" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M4 17v3h16v-3"/></svg>
+            BAIXAR APK DIRETO (GRÁTIS)
+          </a>
+          <div class="download-note">Versão v1.9 • Android • Link Direto (Sem encurtador e sem anúncios)</div>
+          <div class="trust-note">Baixe apenas se você confia na origem do arquivo. O Android pode solicitar confirmação de instalação.</div>
+          <details class="install-card">
+            <summary>Como instalar o APK no Android?</summary>
+            <ol>
+              <li>Toque no botão de download e aguarde o arquivo APK terminar de baixar.</li>
+              <li>Abra o arquivo pela notificação ou pela pasta <strong>Downloads</strong>. Se solicitado, permita que seu navegador ou gerenciador de arquivos instale apps dessa fonte nas configurações do Android.</li>
+              <li>Volte à instalação, confirme em <strong>Instalar</strong> e abra o jogo quando terminar. Se não reconhecer o arquivo, confira se o download foi concluído.</li>
+            </ol>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="mechanics" id="sobre">
+      <div class="container">
+        <div class="section-kicker">A floresta está esperando</div>
+        <h2 class="section-title">SOBREVIVA À ÚLTIMA NOITE</h2>
+        <p class="section-lead">Cada noite traz um novo risco. Explore com cuidado, use os recursos que encontrar e descubra o que aconteceu no parque.</p>
+        <div class="cards">
+          <article class="feature-card">
+            <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 18h6m-5 3h4M8 14a7 7 0 1 1 8 0c-.8.6-1 1.2-1 2H9c0-.8-.2-1.4-1-2Z"/><path d="M12 3v2"/></svg></div>
+            <h3>Exploração no Escuro</h3><p>Use sua lanterna e sintonize o rádio para sobreviver à neblina.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-7h6v7"/><path d="m3 8 9 6 9-6"/></svg></div>
+            <h3>Defesa da Cabana</h3><p>Pegue tábuas e pregue as entradas antes que algo tente invadir.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 3h12v18H6zM9 7h6M9 11h6M9 15h4"/></svg></div>
+            <h3>Investigação</h3><p>Gerencie sua mochila e anote pistas no caderno para descobrir a saída.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-8-4.5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6.5-8 11-8 11Z"/><path d="M12 8v6m-3-3h6"/></svg></div>
+            <h3>Resgate e Múltiplos Finais</h3><p>Salve seus amigos perdidos na floresta — suas escolhas mudam o final.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="avaliacao">
+      <div class="container">
+        <div class="feedback-wrap">
+          <div><div class="section-kicker">Sua opinião importa</div><h2 class="section-title">TESTOU O JOGO?</h2><p>Sua avaliação constrói o futuro do projeto! Conte o que deu mais medo, se encontrou bugs e o que gostaria de ver nas próximas versões.</p></div>
+          <button class="secondary-btn" id="openFeedback">✦ AVALIAR O JOGO AGORA</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="funding" id="vaquinha">
+      <div class="container funding-grid">
+        <div class="funding-copy">
+          <div class="section-kicker">Ajude o projeto a crescer</div>
+          <h2 class="section-title">AJUDE A TRANSFORMAR ESSE PROTÓTIPO EM UM JOGO COMPLETO</h2>
+          <p><strong>Última Noite no Parque é desenvolvido 100% sozinho por Zackx.</strong> Nesta fase inicial, alguns personagens reutilizam sprites existentes e parte dos cenários e elementos visuais foi desenhada via código, principalmente pela falta de orçamento.</p>
+          <p>A meta é usar <strong>100% do valor arrecadado</strong> para contratar artistas e desenvolvedores profissionais, refazer gráficos e animações e expandir a história. A contribuição ajuda a transformar a ideia em uma experiência de terror mais completa.</p>
+          <p>Obrigado por apoiar um projeto indie independente. Cada contribuição — e cada compartilhamento — faz diferença.</p>
+        </div>
+        <aside class="fund-card">
+          <h3>Vaquinha do projeto</h3>
+          <div class="fund-caption">Meta de financiamento coletivo</div>
+          <div class="amounts"><span id="raisedAmount">R$ 0,00 arrecadados</span><span id="goalAmount">Meta: R$ 2.000,00</span></div>
+          <div class="progress" role="progressbar" aria-label="Progresso da vaquinha" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressBar"><div class="progress-fill" id="progressFill"></div></div>
+          <div class="pix-placeholder">
+            <div><strong>Espaço do LivePix / QR Code</strong><br>Adicione aqui o iframe ou QR Code oficial da sua campanha, caso utilize o widget LivePix.</div>
+          </div>
+          <a class="donate-btn" href="https://campanhadobem.com/ultima-noite-no-parque-contratacao-de-devs-e-artistas" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 21s-8-4.5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6.5-8 11-8 11Z"/><path d="M8 12h8M12 8v8"/></svg>
+            CONTRIBUIR NA VAQUINHA
+          </a>
+          <p class="fund-caption">Você será direcionado à página oficial da campanha.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section id="creditos">
+      <div class="container">
+        <div class="section-kicker">Quem está por trás</div>
+        <h2 class="section-title">CRÉDITOS E TRANSPARÊNCIA</h2>
+        <div class="credits">
+          <div class="credit-row"><span>Estúdio</span><strong>Reey Games</strong></div>
+          <div class="credit-row"><span>Criação, Programação e Game Design</span><strong>Zackx (Dev Solo)</strong></div>
+          <div class="credit-row"><span>Engine</span><strong>Godot Engine</strong></div>
+        </div>
+        <div class="transparency"><strong>Nota de Transparência:</strong> Protótipo inicial construído com sprites reutilizados e elementos gráficos gerados por código.</div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand"><img src="assets/logo-reey-games.jpg" alt="Logo da Reey Games"><div><strong>REEY GAMES</strong><small>GAME STUDIO</small></div></div>
+        <div class="socials" aria-label="Redes sociais">
+          <a class="social-link" href="https://youtube.com/@isaacsamuel-n6r?si=e83jLlwFtVPmtMK-" target="_blank" rel="noopener noreferrer" aria-label="YouTube" title="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z"/></svg></a>
+          <!-- Substitua os href="#" abaixo pelos perfis oficiais antes de publicar. -->
+          <a class="social-link" href="#" data-placeholder-social aria-label="TikTok — adicionar link" title="TikTok (adicione o link)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 7.2a6.8 6.8 0 0 1-4.2-1.5v8.1a6.3 6.3 0 1 1-5.4-6.2v3.4a2.9 2.9 0 1 0 2 2.8V0h3.4c.2 2.1 1.9 3.8 4.2 4v3.2Z"/></svg></a>
+          <a class="social-link" href="#" data-placeholder-social aria-label="Instagram — adicionar link" title="Instagram (adicione o link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg></a>
+          <a class="social-link" href="#" data-placeholder-social aria-label="Discord — adicionar link" title="Discord (adicione o link)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.7 5.1A18 18 0 0 0 15.3 3.7l-.5 1a16 16 0 0 0-5.6 0l-.5-1a18 18 0 0 0-4.4 1.4C1.5 9.2.8 13.2 1.2 17.2a18 18 0 0 0 5.4 2.7l1.2-2a11 11 0 0 1-1.9-.9l.5-.4a12.8 12.8 0 0 0 11.2 0l.5.4a11 11 0 0 1-1.9.9l1.2 2a18 18 0 0 0 5.4-2.7c.5-4.6-.8-8.6-3.1-12.1ZM8.8 14.7c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Zm6.4 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Z"/></svg></a>
+        </div>
+      </div>
+      <div class="copyright">© 2026 Reey Games. Todos os direitos reservados.</div>
+    </div>
+  </footer>
+
+  <dialog id="feedbackDialog" aria-labelledby="feedbackTitle">
+    <div class="modal-inner">
+      <div class="modal-head"><h2 id="feedbackTitle">Sua avaliação</h2><button class="close-modal" id="closeFeedback" aria-label="Fechar">×</button></div>
+      <form id="feedbackForm">
+        <div class="field"><label for="fear">O que deu mais medo?</label><textarea id="fear" name="fear" placeholder="Conte sua parte mais assustadora..." required></textarea></div>
+        <div class="field"><label for="bugs">Encontrou algum bug?</label><select id="bugs" name="bugs"><option>Não encontrei bugs</option><option>Sim, encontrei bugs</option><option>O jogo travou ou fechou</option></select></div>
+        <div class="field"><label for="ideas">O que você gostaria de adicionar?</label><textarea id="ideas" name="ideas" placeholder="Novas mecânicas, melhorias, ideias..."></textarea></div>
+        <button class="submit-btn" type="submit">COPIAR AVALIAÇÃO</button>
+        <p class="modal-hint">A avaliação será preparada para copiar e enviar. Este protótipo não envia respostas automaticamente para um servidor.</p>
+      </form>
+    </div>
+  </dialog>
+
+  <script>
+    // Edite estes dois valores para atualizar a barra da campanha.
+    const FUNDRAISING = { raised: 0, goal: 2000 };
+    const money = value => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
+    const percent = FUNDRAISING.goal > 0 ? Math.min(100, Math.max(0, FUNDRAISING.raised / FUNDRAISING.goal * 100)) : 0;
+    document.getElementById('raisedAmount').textContent = `${money(FUNDRAISING.raised)} arrecadados`;
+    document.getElementById('goalAmount').textContent = `Meta: ${money(FUNDRAISING.goal)}`;
+    document.getElementById('progressFill').style.width = `${percent}%`;
+    document.getElementById('progressBar').setAttribute('aria-valuenow', String(Math.round(percent)));
+
+    const menuToggle = document.getElementById('menuToggle');
+    const nav = document.getElementById('mainNav');
+    menuToggle.addEventListener('click', () => {
+      const open = nav.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', String(open));
+      menuToggle.textContent = open ? '×' : '☰';
+    });
+    nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      nav.classList.remove('open'); menuToggle.setAttribute('aria-expanded', 'false'); menuToggle.textContent = '☰';
+    }));
+    document.querySelectorAll('[data-placeholder-social]').forEach(link => link.addEventListener('click', event => {
+      event.preventDefault(); alert('Adicione o link oficial deste perfil no arquivo index.html antes de publicar a página.');
+    }));
+
+    const dialog = document.getElementById('feedbackDialog');
+    document.getElementById('openFeedback').addEventListener('click', () => dialog.showModal());
+    document.getElementById('closeFeedback').addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
+    document.getElementById('feedbackForm').addEventListener('submit', async event => {
+      event.preventDefault();
+      const form = new FormData(event.currentTarget);
+      const content = `AVALIAÇÃO — ÚLTIMA NOITE NO PARQUE\n\nO que deu mais medo: ${form.get('fear')}\nEncontrou bugs: ${form.get('bugs')}\nO que gostaria de adicionar: ${form.get('ideas') || 'Não informado'}`;
+      try {
+        await navigator.clipboard.writeText(content);
+        alert('Avaliação copiada! Agora você pode colar e enviar ao desenvolvedor.');
+      } catch {
+        window.prompt('Copie sua avaliação:', content);
+      }
+      dialog.close();
+    });
+  </script>
+</body>
+</html>
